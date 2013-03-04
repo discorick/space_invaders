@@ -1,15 +1,14 @@
 require 'spec_helper'
 
 describe SpaceEngine do
-  context "When Spinning up a game" do
+  context "When Spinning up an New Game Environment" do
 
     before(:all) do
       @space_arena = SpaceEngine.new
     end
 
-    it "\n - Places the Players Ship" do
-      @player_ship = Dispatcher.dispatch(SpaceShip.new){ :player_ship }
-      @space_arena.move(@player_ship).to([9,0])
+    it "\n - Should What" do
+
     end
 
   end

@@ -1,20 +1,9 @@
-class SpaceShip
+class InvaderArmy
 
-  attr_accessor :lives, :weapon, :position, :size
+  attr_accessor :invaders
 
   def initialize
-    @lives = 1
-    @weapon = :laser
-    @position = [0,0]
-    @size = [1,1]
-  end
-
-  def add_life
-    @lives += 1
-  end
-
-  def remove_life
-    @lives -= 1
+    @invaders = []
   end
 
 end

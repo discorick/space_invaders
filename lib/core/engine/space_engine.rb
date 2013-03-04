@@ -1,12 +1,11 @@
 class SpaceEngine
 
-  def move(object)
-    @object = object
-    self
-  end
+  attr_reader :player_ship, :invader_army
 
-  def to(posi)
-    @object.position = posi
+  def initialize
+    @arena = Arena.new
+    @player_ship = Dispatcher.dispatch(SpaceShip.new){ :player_ship }
+    @invader_army = Dispatcher.dispatch(InvaderArmy.new)
   end
 
 end
