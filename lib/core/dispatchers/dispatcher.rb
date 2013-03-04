@@ -1,4 +1,4 @@
-require_relative 'ship_types.rb'
+Dir.glob('lib/core/dispatchers/*types.rb'){|file| require File.expand_path(file)}
 
 class Dispatcher
   extend ShipTypes

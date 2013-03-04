@@ -1,11 +1,11 @@
 module ShipTypes
 
   def player_ship
-    @space_object.weapon, @space_object.lives, @space_object.size = :laser, 3, [1,1]
+    @space_object.lives = 3
   end
 
   def invader_ship
-
+    @space_object.lives = 1
   end
 
 end
