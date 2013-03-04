@@ -1,20 +1,16 @@
-class SpaceShip
+require_relative '../dispatchers/dispatcher.rb'
 
-  attr_accessor :lives, :weapon, :position, :size
+class InvaderArmy
+
+  attr_accessor :invaders
 
   def initialize
-    @lives = 1
-    @weapon = :laser
-    @position = [0,0]
-    @size = [1,1]
+    @invaders = []
   end
 
-  def add_life
-    @lives += 1
-  end
-
-  def remove_life
-    @lives -= 1
+  def add_invaders(number)
+    number.times{@invaders << Dispatcher.
+                 dispatch(SpaceShip.new){ :invader_ship }}
   end
 
 end

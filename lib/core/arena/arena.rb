@@ -16,5 +16,5 @@ class Arena < Gosu::Window
   end
 end
 
-window = Arena.new
-window.show
+#window = Arena.new
+#window.show

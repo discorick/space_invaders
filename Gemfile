@@ -13,5 +13,6 @@ group :rubydev do
   gem 'rb-inotify'
   gem 'fakes'
   gem 'fakes-rspec'
+  gem 'gosu'
 end
 

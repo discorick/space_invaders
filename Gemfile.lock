@@ -13,6 +13,7 @@ GEM
       fakes
       rspec
     ffi (1.4.0)
+    gosu (0.7.45)
     guard (1.6.2)
       listen (>= 0.6.0)
       lumberjack (>= 1.0.2)
@@ -62,6 +63,7 @@ DEPENDENCIES
   awesome_print
   fakes
   fakes-rspec
+  gosu
   guard
   guard-rspec
   interactive_editor
