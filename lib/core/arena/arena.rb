@@ -1,13 +1,11 @@
 require 'gosu'
-require_relative 'player.rb'
-require_relative '../engine/space_engine.rb'
 
 class Arena < Gosu::Window
   
   def initialize
     super 800, 600, false
     self.caption = "Space Invaders"
-    @background_image = Gosu::Image.new(self, "lib/resources/images/space.png", true)
+    @background_image = Gosu::Image.new(self, Constants::Environment::BACKGROUND, true)
 
     @space_engine = SpaceEngine.new
     @player_ship = @space_engine.player_ship
