@@ -1,4 +1,4 @@
-require 'gosu'
+require_relative 'keys.rb'
 
 class Arena < Gosu::Window
   
@@ -8,20 +8,30 @@ class Arena < Gosu::Window
     @background_image = Gosu::Image.new(self, Constants::Environment::BACKGROUND, true)
 
     @space_engine = SpaceEngine.new
+
     @player_ship = @space_engine.player_ship
     @player_ship.setup_player self
     @space_engine.warp @player_ship, 400, 500 
+
+    @bullet = @player_ship.weapon.fire
+    @bullet.setup_bullet self
+    @space_engine.warp @bullet, 450, 550 
+  end
+
+  def init_space_object space_object
+
   end
 
   def update
-    if button_down? Gosu::KbLeft then @player_ship.turn_left
+    Keys.bindings.each do |binding, command|
+      @player_ship.send(command) if button_down? binding 
     end
-    if button_down? Gosu::KbRight then @player_ship.turn_right
-    end
+    @bullet.fire_now if button_down? Gosu::KbSpace 
   end
 
   def draw
     @player_ship.draw
+    @bullet.draw
     @background_image.draw(0,0,0)
   end
 

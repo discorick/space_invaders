@@ -12,7 +12,7 @@ describe Dispatcher do
 
     it "\n - Should Dispatch a Player Ship" do
       @player_ship = Dispatcher.dispatch(SpaceShip.new){ :player_ship }
-      @player_ship.weapon.should == :laser
+      @player_ship.weapon.type.should == :cannon
       @player_ship.size.should == [1,1]
       @player_ship.lives.should == 3
     end

@@ -3,14 +3,14 @@ module Player
 
   def setup_player(window)
     @image = Gosu::Image.new(window, Constants::SpaceCraft::PLAYER, false)
-    @x = @y = @vel_x = @vel_y = @angle = 0.0
+    @x = @y = @angle = 0.0
   end
 
-  def turn_left
+  def move_left
     @x -= 5
   end
 
-  def turn_right
+  def move_right
     @x += 5 
   end
 
