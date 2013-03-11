@@ -8,7 +8,7 @@ class Weapon
   end
 
   def fire
-    Dispatcher.dispatch(Projectile.new){@armory[@type]}
+    return @armory[@type]
   end
 
   def add weapon

@@ -1,7 +1,7 @@
 module Player
   attr_accessor :x, :y
 
-  def setup_player(window)
+  def setup(window)
     @image = Gosu::Image.new(window, Constants::SpaceCraft::PLAYER, false)
     @x = @y = @angle = 0.0
   end

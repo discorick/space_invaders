@@ -1,7 +1,7 @@
 module Bullet
   attr_accessor :x, :y
 
-  def setup_bullet(window)
+  def setup(window)
     @image = Gosu::Image.new(window, Constants::Weapon::GREEN_BULLET, false)
     @x = @y = @vel_x = @vel_y = @angle = 0.0
   end

@@ -12,12 +12,12 @@ describe Weapon do
     end
 
     it 'Has an Armory' do
-      @weapon.armory[:laser_gun].should == :laser 
+      @weapon.armory[:laser_gun].should == :laser
     end
 
   end
-   
-  context 'A  Weapon' do
+
+  context 'A Weapon' do
 
     before(:each) do
       @weapon = Weapon.new
@@ -25,7 +25,7 @@ describe Weapon do
 
     it 'Fires the weapon' do
       @weapon.type.should == :cannon
-      @weapon.fire
+      @weapon.fire.should == :bullet
     end
 
     it 'Adds a Weapon Type' do
@@ -34,7 +34,7 @@ describe Weapon do
     end
 
     it 'Changes to a Weapon' do
-      @weapon.change_to :laser_gun
+    @weapon.change_to :laser_gun
     end
 
   end
