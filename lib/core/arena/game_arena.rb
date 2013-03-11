@@ -1,6 +1,6 @@
 require_relative 'keys.rb'
 
-class Arena < Gosu::Window
+class GameArena < Gosu::Window
   
   def initialize
     super 800, 600, false

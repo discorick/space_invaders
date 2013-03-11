@@ -1,4 +1,4 @@
 require_relative 'lib/space_invaders.rb'
 
-window = Arena.new
+window = GameArena.new
 window.show
