@@ -1,8 +1,12 @@
 module Keys
 
-  def self.bindings
-    @bindings = {Gosu::KbLeft => :move_left,
-                 Gosu::KbRight => :move_right}
+  def self.ship_bindings window
+    bindings = {Gosu::KbLeft => :move_left,
+                Gosu::KbRight => :move_right}
+  end
+
+  def self.engine_bindings window
+    bindings = {Gosu::KbSpace => [:player_fire, window]}
   end
 
 end

@@ -8,8 +8,8 @@ class Orders
     @order_hash = @order_hash.merge(order)
   end
 
-  def act_on order
-    @order_hash[order]
+  def execute order
+    @order_hash[order].call
   end
 
 end

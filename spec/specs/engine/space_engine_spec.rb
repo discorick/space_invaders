@@ -3,8 +3,6 @@ require 'spec_helper'
 describe SpaceEngine do
   context "When Spinning up an New Game Environment" do
 
-    let(:player_ship){ fake }
-
     before(:each) do
       @space_arena = SpaceEngine.new
       @player_ship = @space_arena.player_ship
@@ -18,7 +16,7 @@ describe SpaceEngine do
 
   context "An existing Game Environment" do
     
-    before(:all) do
+    before(:each) do
       @space_arena = SpaceEngine.new 
       @player_ship = @space_arena.player_ship
     end
@@ -31,6 +29,10 @@ describe SpaceEngine do
 
     it "\n - Should Execute Orders" do
       @space_arena.execute_order(@player_ship.weapon.fire).class.should == Projectile 
+    end
+
+    it "\n - Should Execute Order Sequences" do
+      #@space_arena.execute_order_sequence
     end
 
   end
