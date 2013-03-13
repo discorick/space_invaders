@@ -1,9 +1,10 @@
 module Player
-  attr_accessor :x, :y
+  attr_accessor :x, :y, :shots_fired
 
   def setup(window)
     @image = Gosu::Image.new(window, Constants::SpaceCraft::PLAYER, false)
     @x = @y = @angle = 0.0
+    @shots_fired = []
   end
 
   def move_left

@@ -8,6 +8,11 @@ module ShipTypes
 
   def invader_ship
     @space_object.lives = 1
+    @space_object.send :extend, Invader
+  end
+
+  def army_container
+    @space_object.send :extend, ArmyContainer
   end
 
 end

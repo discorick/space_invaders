@@ -5,8 +5,4 @@ module Keys
                 Gosu::KbRight => :move_right}
   end
 
-  def self.engine_bindings window
-    bindings = {Gosu::KbSpace => [:player_fire, window]}
-  end
-
 end

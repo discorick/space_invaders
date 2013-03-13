@@ -7,7 +7,6 @@ class GameArena < Gosu::Window
     self.caption = "Space Invaders"
     @background_image = Gosu::Image.new(self, Constants::Environment::BACKGROUND, true)
     init_space_objects 
-    @timer = []
   end
 
   def update 
@@ -16,34 +15,33 @@ class GameArena < Gosu::Window
       @player_ship.send(command) if button_down? binding  
     end
 
-    @space_objects << @space_engine.player_fire(self) if button_down? Gosu::KbSpace
-
-    puts @space_objects.length
-
-    @space_objects.each do |so| 
-      so.alive = false if so.y <= 0 
-      @space_objects.delete so unless so.alive
-      so.move
+    @player_ship.shots_fired.each do |sf| 
+      sf.alive?
+      @player_ship.shots_fired.delete sf unless sf.alive
+      sf.move if sf.alive
     end
+
+    @space_engine.move_invaders
 
   end
 
   def draw
-    @space_objects.each{|space_object| space_object.draw}
+    @invader_army.invaders.each{|group| group.each{|invader| invader.draw}}
+    @player_ship.shots_fired.each{|sf| sf.draw}
     @player_ship.draw
     @background_image.draw(0,0,0)
   end
 
   def init_space_objects
     @space_engine = SpaceEngine.new
-    @player_ship = @space_engine.setup_player self
-    @space_objects = []
+    @space_engine.window = self
+    @player_ship = @space_engine.setup_player 
+    @invader_army = @space_engine.setup_invader_army 
   end
 
   def button_down(id)
-    if id == Gosu::KbEscape
-      close
-    end
+    close if id == Gosu::KbEscape
+    @player_ship.shots_fired << @space_engine.player_fire if id == Gosu::KbSpace
   end
 
 end

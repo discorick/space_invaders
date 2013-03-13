@@ -13,7 +13,14 @@ describe InvaderArmy  do
 
     it "\n - Adds Invaders" do
       @invader_army.add_invaders(20)
-      @invader_army.invaders.length.should eql 20 or should be > 20 
+      @invader_army.invaders.length.should eql 20 
+    end
+    
+    it "\n - Adds Invaders in Groups" do
+      @invader_army.add_invader_group(0,10)
+      @invader_army.invaders[0].length.should eql 10
+      @invader_army.add_invader_group(1,10)
+      @invader_army.invaders[1].length.should eql 10
     end
 
   end

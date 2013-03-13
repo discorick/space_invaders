@@ -27,13 +27,5 @@ describe SpaceEngine do
       @player_ship.y.should == 200
     end
 
-    it "\n - Should Execute Orders" do
-      @space_arena.execute_order(@player_ship.weapon.fire).class.should == Projectile 
-    end
-
-    it "\n - Should Execute Order Sequences" do
-      #@space_arena.execute_order_sequence
-    end
-
   end
 end

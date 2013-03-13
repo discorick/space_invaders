@@ -6,9 +6,9 @@ module Constants
 
   module SpaceCraft
     PLAYER = File.expand_path('lib/resources/images/player_ships/player1_ship.png')
-    INVADER_1 = File.expand_path('put_resource_path_here')
-    INVADER_2 = File.expand_path('')
-    INVADER_3 = File.expand_path('')
+    INVADER1 = File.expand_path('lib/resources/images/enemy_ships/enemy1.png')
+    INVADER2 = File.expand_path('lib/resources/images/enemy_ships/enemy2.png')
+    INVADER3 = File.expand_path('lib/resources/images/enemy_ships/enemy3.png')
     BURNER = File.expand_path('lib/resources/images/particles/burner.png')
     EXPLODE = File.expand_path('lib/resources/images/particles/explode.png')
   end

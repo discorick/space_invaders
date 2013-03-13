@@ -9,7 +9,12 @@ module Bullet
   end
 
   def move
-    @y -= 3
+    @y -= 5
+  end
+
+  def alive?
+    @alive = false if @y <= 0
+    @alive = false if @collide == true
   end
 
   def draw
