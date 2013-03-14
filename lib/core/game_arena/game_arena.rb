@@ -21,7 +21,7 @@ class GameArena < Gosu::Window
       sf.move if sf.alive
     end
 
-    @space_engine.move_invaders
+    @invader_army.timer.run_every(50){@space_engine.move_invaders}
 
   end
 
@@ -37,6 +37,7 @@ class GameArena < Gosu::Window
     @space_engine.window = self
     @player_ship = @space_engine.setup_player 
     @invader_army = @space_engine.setup_invader_army 
+    @timer = Timer.new
   end
 
   def button_down(id)

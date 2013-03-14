@@ -14,7 +14,7 @@ module Invader
 
   def hits_border?
     result = false
-    result = true if @x == 0 or @x == 800
+    result = true if @x == 25 or @x == 775
     result
   end
 

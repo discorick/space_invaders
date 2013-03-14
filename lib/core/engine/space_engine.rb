@@ -20,7 +20,7 @@ class SpaceEngine
 
   def setup_invader_army 
     @invader_army.setup
-    @invader_army.x, @invader_army.y = 175, 350
+    @invader_army.x, @invader_army.y = 175, 200
     3.times{|group| @invader_army.add_invader_group(group,10)}
     process_invaders 
     @invader_army

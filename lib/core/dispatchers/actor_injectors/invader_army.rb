@@ -1,12 +1,13 @@
 module ArmyContainer
 
-  attr_accessor :x,:y, :increment
+  attr_accessor :x,:y, :increment, :timer
 
   def setup
     @x = @y = @angle = 0.0
     @direction = [:move_right, :move_left]
     @increment = 25
     @flags = {:reverse => false}
+    @timer = Timer.new
     self
   end
 
