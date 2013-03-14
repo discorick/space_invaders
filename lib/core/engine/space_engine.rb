@@ -29,7 +29,8 @@ class SpaceEngine
   def move_invaders
     @invader_army.move 
     @invader_army.invaders.each{|group| group.each do |invader|
-      invader.x += @invader_army.increment
+      invader.x += @invader_army.increment_x
+      invader.y += @invader_army.increment_y
       @invader_army.flag :reverse if invader.hits_border?
     end}
     @invader_army.check_flags

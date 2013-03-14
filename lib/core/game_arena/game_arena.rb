@@ -1,5 +1,3 @@
-require_relative 'keys.rb'
-
 class GameArena < Gosu::Window
   
   def initialize
@@ -37,7 +35,6 @@ class GameArena < Gosu::Window
     @space_engine.window = self
     @player_ship = @space_engine.setup_player 
     @invader_army = @space_engine.setup_invader_army 
-    @timer = Timer.new
   end
 
   def button_down(id)
