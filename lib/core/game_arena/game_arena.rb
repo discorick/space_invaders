@@ -10,6 +10,7 @@ class GameArena < Gosu::Window
   def update 
 
     @space_engine.process_shots
+    @space_engine.invaders_unobstruct_clear_shots
 
     Keys.ship_bindings(self).each do |binding, command|
       @player_ship.send(command) if button_down? binding  

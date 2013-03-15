@@ -1,6 +1,6 @@
 module Invader
 
-  attr_accessor :x, :y, :shots_fired, :dead
+  attr_accessor :x, :y, :shots_fired, :dead, :obstructed
 
   def setup window, type
    @window = window

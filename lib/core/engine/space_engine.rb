@@ -68,6 +68,17 @@ class SpaceEngine
     end}
   end
 
+  def invaders_unobstruct_clear_shots
+    @invaders.each{|group| group.each do |invader|
+      index = @invaders.index(group)
+      invader_index = @invaders[index].index(invader)
+      invader.obstructed = false if index == 0
+      if index > 0 
+        invader.obstructed = false if @invaders[index - 1][invader_index].dead 
+      end
+    end}
+  end
+
 
   private
 
