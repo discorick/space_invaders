@@ -1,6 +1,6 @@
 module Invader
 
-  attr_accessor :x, :y, :shots_fired
+  attr_accessor :x, :y, :shots_fired, :dead
 
   def setup window, type
    @window = window
@@ -11,6 +11,7 @@ module Invader
                      :type3 => Constants::SpaceCraft::INVADER3}
    @image = Gosu::Image.new(@window, @invader_types[type], false)
    @repeat_hit = false
+   @dead, @obstructed = false, true
    @shots_fired = []
   end
 
@@ -22,8 +23,8 @@ module Invader
   end
 
   def fire?(projectile)
-    if rand(1000) < 0.1
-      build projectile
+    if rand(1000) < 1
+      build projectile unless @dead or @obstructed
     end
   end
 
