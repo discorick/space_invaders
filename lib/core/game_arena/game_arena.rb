@@ -23,7 +23,7 @@ class GameArena < Gosu::Window
 
   def draw
     @invader_army.invaders.each{|group| group.each do |invader| 
-      invader.draw #unless invader.is_dead
+      invader.draw unless invader.dead
       invader.shots_fired.each{|sf| sf.draw}
     end}
     @player_ship.shots_fired.each{|sf| sf.draw}
