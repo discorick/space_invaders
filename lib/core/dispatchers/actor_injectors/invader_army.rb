@@ -6,19 +6,28 @@ module ArmyContainer
     @x = @y = @angle = 0.0
     @direction = [:move_right, :move_left]
     @increment_x, @increment_y = 25, 0 
+
+    @switch = [false, true]
     @flags = {:reverse => false}
+
     @timer = Timer.new
     self
   end
 
-  def move
-    @max_right = @x + 450
-    @increment_y = 25 if @x == 25 or @max_right == 775
-    self.send(@direction[0])
+  def move 
+    @increment_y = 0
+    self.send(@direction[0]) unless @flags[:reverse]
+    reverse if @flags[:reverse]
+  end
+
+  def move_down
+    @y = @increment_y = 25   
+    @increment_x = 0
   end
 
   def reverse
     @direction = @direction.reverse
+    move_down 
     @flags[:reverse] = false
   end
 
@@ -34,13 +43,6 @@ module ArmyContainer
 
   def flag flag
     @flags[flag] = true
-  end
-
-  def check_flags
-    @increment_y = 0
-    @flags.each do |command, bool|
-      self.send(command) if bool
-    end
   end
 
 end

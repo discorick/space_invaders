@@ -3,19 +3,35 @@ module Invader
   attr_accessor :x, :y, :shots_fired
 
   def setup window, type
+   @window = window
    @height = @width = 1
    @x = @y = @angle = 0.0
    @invader_types = {:type1 => Constants::SpaceCraft::INVADER1,
                      :type2 => Constants::SpaceCraft::INVADER2,
                      :type3 => Constants::SpaceCraft::INVADER3}
-   @image = Gosu::Image.new(window, @invader_types[type], false)
+   @image = Gosu::Image.new(@window, @invader_types[type], false)
+   @repeat_hit = false
    @shots_fired = []
   end
 
   def hits_border?
-    result = false
     result = true if @x == 25 or @x == 775
+    result = false if @repeat_hit 
+    @repeat_hit = result
     result
+  end
+
+  def fire?(projectile)
+    if rand(1000) < 0.1
+      build projectile
+    end
+  end
+
+  def build projectile
+    shot = Dispatcher.dispatch(Projectile.new){ projectile }
+    shot.setup @window
+    shot.x, shot.y = @x, @y + 15
+    @shots_fired << shot
   end
 
   def draw 

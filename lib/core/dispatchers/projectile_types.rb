@@ -5,7 +5,7 @@ module ProjectileTypes
   end
 
   def laser
-    #No Actor Build Yet
+    @space_object.send :extend, Laser
   end
 
 end

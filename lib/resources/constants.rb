@@ -15,6 +15,7 @@ module Constants
 
   module Weapon
     GREEN_BULLET = File.expand_path('lib/resources/images/particles/green_bullet.png')
+    LASER = File.expand_path('lib/resources/images/particles/green_bullet.png')
   end
 
 end
