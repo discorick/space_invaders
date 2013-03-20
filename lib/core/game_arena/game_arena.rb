@@ -9,25 +9,36 @@ class GameArena < Gosu::Window
 
   def update 
 
-    @space_engine.process_shots
-    @space_engine.invaders_unobstruct_clear_shots
+    unless @player_ship.dead
+      @space_engine.process_player_shots
+      @space_engine.invaders_unobstruct_clear_shots
 
-    Keys.ship_bindings(self).each do |binding, command|
-      @player_ship.send(command) if button_down? binding  
+      Keys.ship_bindings(self).each do |binding, command|
+        @player_ship.send(command) if button_down? binding  
+      end
+
+      @invader_army.each do |invader|
+        @player_ship.is_hit? invader.shots_fired
+      end
+
+      @invader_army.timer.run_every(50){@space_engine.move_invaders}
+      @space_engine.invaders_fire 
     end
 
-    @invader_army.timer.run_every(50){@space_engine.move_invaders}
-    @space_engine.invaders_fire 
+    @invader_army.each{|invader| invader.is_hit? @player_ship.shots_fired unless invader.dead}
+    @space_engine.process_invader_shots
 
   end
 
   def draw
-    @invader_army.invaders.each{|group| group.each do |invader| 
+    unless @player_ship.dead
+      @player_ship.shots_fired.each{|sf| sf.draw}
+      @player_ship.draw
+    end
+    @invader_army.each do |invader| 
       invader.draw unless invader.dead
       invader.shots_fired.each{|sf| sf.draw}
-    end}
-    @player_ship.shots_fired.each{|sf| sf.draw}
-    @player_ship.draw
+    end
     @background_image.draw(0,0,0)
   end
 

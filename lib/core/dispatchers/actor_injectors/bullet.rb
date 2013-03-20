@@ -1,11 +1,10 @@
 module Bullet
-  attr_accessor :x, :y, :alive, :collide
-
+  attr_accessor :x, :y, :dead, :collide
   def setup(window)
     @image = Gosu::Image.new(window, Constants::Weapon::GREEN_BULLET, false)
     @x = @y = @vel_x = @vel_y = @angle = 0.0
     @height = @width = 1
-    @alive, @collide = true, false
+    @dead, @collide = false, false
   end
 
   def move
@@ -13,8 +12,7 @@ module Bullet
   end
 
   def alive?
-    @alive = false if @y <= 0
-    @alive = false if @collide == true
+    @dead = true if @y <= 0 || @collide
   end
 
   def draw

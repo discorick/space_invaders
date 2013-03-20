@@ -18,4 +18,12 @@ class InvaderArmy
     number.times{@invaders[group] << Dispatcher.dispatch(SpaceShip.new){ :invader_ship }}
   end
 
+  def each(&block)
+    @invaders.each do |group|
+      group.each do |invader|
+        yield invader
+      end
+    end
+  end
+
 end

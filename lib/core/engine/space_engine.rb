@@ -28,25 +28,21 @@ class SpaceEngine
     projectile
   end
 
-  def process_shots
-    @player_ship.shots_fired.each do |sf| 
+  def process_player_shots
+    @player_ship.each do |sf| 
       sf.alive?
-      @player_ship.shots_fired.delete sf unless sf.alive
-      sf.move if sf.alive
+      @player_ship.shots_fired.delete sf if sf.dead
+      sf.move unless sf.dead
     end
-    @invaders.each{|group| group.each{|invader| invader.shots_fired.each do |sf|
-      sf.alive?
-      invader.shots_fired.delete sf unless sf.alive
-      sf.move if sf.alive
-    end}}
   end
+
 
   ## Invader Actions
 
   def setup_invader_army 
     @invader_army.setup
     @invader_army.x, @invader_army.y = 175, 200
-    @invaders = @invader_army.invaders 
+    @invaders = @invader_army.invaders
     3.times{|group| @invader_army.add_invader_group(group,10)}
     equip_invaders
     process_invaders 
@@ -55,17 +51,17 @@ class SpaceEngine
 
   def move_invaders
     @invader_army.move 
-    @invaders.each{|group| group.each do |invader|
+    @invader_army.each do |invader|
       invader.x += @invader_army.increment_x
       invader.y += @invader_army.increment_y
       @invader_army.flag :reverse if invader.hits_border?
-    end}
+    end
   end
 
   def invaders_fire
-    @invaders.each{|group| group.each do |invader|
+    @invader_army.each do |invader|
       invader.fire? invader.weapon.fire
-    end}
+    end
   end
 
   def invaders_unobstruct_clear_shots
@@ -79,6 +75,13 @@ class SpaceEngine
     end}
   end
 
+  def process_invader_shots
+    @invader_army.each{|invader| invader.each do |sf|
+      sf.alive?
+      invader.shots_fired.delete sf unless sf.alive
+      sf.move if sf.alive
+    end}
+  end
 
   private
 
@@ -95,10 +98,10 @@ class SpaceEngine
   end
 
   def equip_invaders
-    @invaders.each{|group| group.each do |invader|
+    @invader_army.each do |invader|
       invader.weapon = Dispatcher.dispatch(Weapon.new)
       invader.weapon.change_to :laser_gun
-    end}
+    end
   end
 
 end
