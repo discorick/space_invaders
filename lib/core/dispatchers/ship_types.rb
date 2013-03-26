@@ -9,6 +9,8 @@ module ShipTypes
   def invader_ship
     @space_object.lives = 1
     @space_object.send :extend, Invader
+    @space_object.class.module_eval { attr_accessor :offset_x, :offset_y }
+    @space_object.offset_x = @space_object.offset_y = 50
   end
 
   def army_container

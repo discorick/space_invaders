@@ -40,12 +40,9 @@ class SpaceEngine
   ## Invader Actions
 
   def setup_invader_army 
-    @invader_army.setup
-    @invader_army.x, @invader_army.y = 175, 200
-    @invaders = @invader_army.invaders
     3.times{|group| @invader_army.add_invader_group(group,10)}
-    equip_invaders
-    process_invaders 
+    @invader_army.setup @invader_army, @window
+    @invaders = @invader_army.invaders
     @invader_army
   end
 
@@ -65,14 +62,16 @@ class SpaceEngine
   end
 
   def invaders_unobstruct_clear_shots
-    @invaders.each{|group| group.each do |invader|
-      index = @invaders.index(group)
-      invader_index = @invaders[index].index(invader)
-      invader.obstructed = false if index == 0
-      if index > 0 
-        invader.obstructed = false if @invaders[index - 1][invader_index].dead 
+    @invaders.each do |group|
+      invader_row = @invader_army.invaders.index(group)
+      group.each do |invader|
+        invader_index = group.index(invader)
+        invader.obstructed = false if invader_row == 2
+        if invader_row < 2 
+          invader.obstructed = false if @invaders[invader_row - 1][invader_index].dead 
+        end
       end
-    end}
+    end
   end
 
   def process_invader_shots
@@ -83,25 +82,5 @@ class SpaceEngine
     end}
   end
 
-  private
-
-  def process_invaders(y = (@invader_army.y + 50))
-    @invaders.each do |group|
-      y -= 50
-      x = @invader_army.x - 50
-      group.each do |invader|
-        x += 50
-        invader.setup @window, ("type#{@invader_army.invaders.index(group) + 1}").to_sym
-        invader.x, invader.y = x,y
-      end
-    end
-  end
-
-  def equip_invaders
-    @invader_army.each do |invader|
-      invader.weapon = Dispatcher.dispatch(Weapon.new)
-      invader.weapon.change_to :laser_gun
-    end
-  end
 
 end
