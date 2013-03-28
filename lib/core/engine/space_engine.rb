@@ -1,12 +1,38 @@
 require_relative '../dispatchers/dispatcher.rb'
 class SpaceEngine
-  attr_accessor :player_ship, :invader_army, :window
+  attr_accessor :player_ship, :invader_army, :window, :level, :flag_global
 
-  def initialize 
-    @player_ship = Dispatcher.dispatch(SpaceShip.new){ :player_ship }
-    @invader_army = Dispatcher.dispatch(InvaderArmy.new){ :army_container }
-    @window = 'window'
+  def initialize window
+    @window = window
+    set_global_conditions
+    setup_new_game
   end
+
+  def setup_new_game
+    @player_ship = Dispatcher.dispatch(SpaceShip.new){ :player_ship }
+    @level = 0
+    new_level
+  end
+
+  def set_global_conditions
+    @conditions = {:next_level => lambda{new_level},
+                   :game_over => lambda {game_over},
+                   :do_nothing => lambda { }}
+    @flag_global = :do_nothing
+  end
+
+  def run_global_conditions
+    @conditions[@flag_global].call
+    @flag_global = :do_nothing
+  end
+
+  def new_level
+    @level += 1
+    @invader_army = Dispatcher.dispatch(InvaderArmy.new){ :army_container }
+    setup_invader_army 
+    @invader_army.each{ |invader| invader.weapon_speed -= @level * 75}
+  end
+
 
   def warp space_object, posix, posiy
     space_object.x, space_object.y = posix, posiy
@@ -62,14 +88,10 @@ class SpaceEngine
   end
 
   def invaders_unobstruct_clear_shots
-    @invaders.each do |group|
-      invader_row = @invader_army.invaders.index(group)
-      group.each do |invader|
-        invader_index = group.index(invader)
-        invader.obstructed = false if invader_row == 2
-        if invader_row < 2 
-          invader.obstructed = false if @invaders[invader_row - 1][invader_index].dead 
-        end
+    @invader_army.each do |invader|
+      invader.obstructed = false if invader.index[0] == 2
+      if invader.index[0] < 2 
+        invader.obstructed = false if @invaders[(invader.index[0] + 1)][invader.index[1]].dead
       end
     end
   end

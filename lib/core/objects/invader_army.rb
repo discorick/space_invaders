@@ -26,4 +26,9 @@ class InvaderArmy
     end
   end
 
+  def size size = 0
+    @invaders.each{|g| g.each{ |invader| size += 1 unless invader.dead}}
+    size
+  end
+
 end

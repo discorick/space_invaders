@@ -1,6 +1,6 @@
 module ArmyContainer
 
-  attr_accessor :x,:y, :increment_x, :increment_y, :timer
+  attr_accessor :x,:y, :increment_x, :increment_y, :timer, :flags
 
   def setup invader_army, window
     @x , @y , @angle = 125, 175, 0.0
@@ -8,11 +8,13 @@ module ArmyContainer
     @increment_x, @increment_y = 25, 0 
 
     @switch = [false, true]
-    @flags = {:reverse => false}
+    @flags = {:reverse => false,
+              :all_dead => :do_nothing}
 
     @window = window
     @timer = Timer.new
     @invader_army = invader_army
+    @speed = 10
 
     process_invaders
     place_invaders
@@ -23,6 +25,7 @@ module ArmyContainer
 
   # Movement
   def move 
+    @flags[:all_dead] = :next_level if @invader_army.size == 0
     @increment_y = 0
     self.send(@direction[0]) unless @flags[:reverse]
     reverse if @flags[:reverse]
@@ -40,13 +43,13 @@ module ArmyContainer
   end
 
   def move_left
-    @x -= 25
-    @increment_x = -25
+    @x -= -@speed
+    @increment_x = -@speed
   end
 
   def move_right
-    @x += 25
-    @increment_x = 25
+    @x += @speed
+    @increment_x = @speed
   end
 
   def flag flag
@@ -77,8 +80,9 @@ module ArmyContainer
     @invader_army.invaders.each do |group|
       invader_row = @invader_army.invaders.index(group)
       group.each do |invader|
-        invader_index = group.index(invader) + 1
-        invader.x = (invader_index * invader.offset_x) + @invader_army.x
+        invader_index = group.index(invader)
+        invader.index[0], invader.index[1] = invader_row, invader_index
+        invader.x = ((invader_index + 1) * invader.offset_x) + @invader_army.x
         invader.y = (invader_row * invader.offset_y) + @invader_army.y
       end
     end

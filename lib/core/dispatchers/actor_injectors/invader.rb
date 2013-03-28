@@ -1,6 +1,6 @@
 module Invader
 
-  attr_accessor :x, :y, :shots_fired, :dead, :obstructed
+  attr_accessor :x, :y, :shots_fired, :dead, :obstructed, :weapon_speed
 
   def setup window, type
    @window = window
@@ -12,6 +12,7 @@ module Invader
    @image = Gosu::Image.new(@window, @invader_types[type], false)
    @repeat_hit = false
    @dead, @obstructed, @hit = false, true, false
+   @weapon_speed = 1000
    @shots_fired = []
   end
 
@@ -37,7 +38,7 @@ module Invader
   end
 
   def fire?(projectile)
-    if rand(1000) < 1
+    if rand(@weapon_speed) < 1
       build projectile unless @dead or @obstructed
     end
   end
